@@ -3,9 +3,9 @@ import User from "./User";
 import { useQuery, gql } from "@apollo/client";
 
 const UsersWrapper = styled.div`
-  width: 100%;
-  margin: 90px 90px 30px 90px;
+  margin: 70px 90px 30px 90px;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 `;
 
@@ -19,6 +19,11 @@ const UsersExplorer = () => {
           email
           phone
           website
+          company {
+            name
+            catchPhrase
+            bs
+          }
           posts {
             data {
               id

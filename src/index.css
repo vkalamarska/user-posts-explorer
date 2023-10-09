@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Comfortaa";
+  src: url("Comfortaa-SemiBold.ttf") format("opentype");
+}
+
 html,
 body {
   width: 100%;
@@ -6,6 +11,7 @@ body {
   box-sizing: border-box;
   font-family: "Comfortaa", "Poppins", sans-serif, "Courier New", Courier,
     monospace;
+  color: black;
 }
 
 #root {
