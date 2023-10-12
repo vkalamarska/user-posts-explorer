@@ -3,7 +3,7 @@ import User from "./User";
 import { useQuery, gql } from "@apollo/client";
 
 const UsersWrapper = styled.div`
-  margin: 45px 90px 30px 90px;
+  margin: 45px 90px 50px 90px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;

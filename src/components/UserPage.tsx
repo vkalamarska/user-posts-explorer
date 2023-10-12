@@ -2,50 +2,15 @@ import { gql, useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import BackIcon from "../assets/back.svg";
-import AddIcon from "../assets/add.svg";
 import DeleteIcon from "../assets/delete.svg";
 import DetailsIcon from "../assets/chevron-right.svg";
+import HeaderNavigation from "./HeaderNavigation";
 
-const PostExplorer = styled.div`
+const PostsExplorer = styled.div`
   margin: 35px 90px 50px 90px;
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const HeaderWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 0 55px 0;
-`;
-
-const ButtonBack = styled(Link)`
-  padding: 20px;
-  background-image: url(${BackIcon});
-  background-size: 100%;
-  background-repeat: no-repeat;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-`;
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-  font-weight: bold;
-`;
-
-const AddPostButton = styled.div`
-  padding: 20px;
-  background-image: url(${AddIcon});
-  background-size: 100%;
-  background-repeat: no-repeat;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
 `;
 
 const PostWrapper = styled.div`
@@ -86,7 +51,7 @@ const PostTitle = styled.div`
   font-size: 13px;
 `;
 
-const DetailsButton = styled.button`
+const DetailsButton = styled(Link)`
   padding: 15px;
   background-image: url(${DetailsIcon});
   background-size: 100%;
@@ -95,6 +60,20 @@ const DetailsButton = styled.button`
   background-color: transparent;
   cursor: pointer;
 `;
+
+interface IPostData {
+  id: string;
+  title: string;
+  body: string;
+}
+
+interface IApiResponse {
+  id: string;
+  name: string;
+  posts: {
+    data: IPostData[];
+  };
+}
 
 const UserPage = () => {
   const { userId } = useParams();
@@ -115,22 +94,24 @@ const UserPage = () => {
     }
   `;
 
-  const { data, loading, error } = useQuery(FILMS_QUERY, {
-    variables: {
-      id: userId,
-    },
-  });
+  const { data, loading, error } = useQuery<{ user: IApiResponse }>(
+    FILMS_QUERY,
+    {
+      variables: {
+        id: userId,
+      },
+    }
+  );
 
   if (loading) return <div>Loading</div>;
-  if (error) return <pre>{error.message}</pre>;
+  if (!data || error) return <pre>{error?.message}</pre>;
 
   return (
-    <PostExplorer>
-      <HeaderWrapper>
-        <ButtonBack to={`/`}></ButtonBack>
-        <Header>{data?.user.name}</Header>
-        <AddPostButton></AddPostButton>
-      </HeaderWrapper>
+    <PostsExplorer>
+      <HeaderNavigation
+        userName={data.user.name}
+        returnToPath={"/"}
+      ></HeaderNavigation>
       <PostWrapper>
         {data?.user.posts.data.map((p) => (
           <PostContainer>
@@ -138,11 +119,11 @@ const UserPage = () => {
               <DeleteButton></DeleteButton>
               <PostTitle>{p.title}</PostTitle>
             </TitleWrapper>
-            <DetailsButton></DetailsButton>
+            <DetailsButton to={`/user/${data.user.id}/${p.id}`}></DetailsButton>
           </PostContainer>
         ))}
       </PostWrapper>
-    </PostExplorer>
+    </PostsExplorer>
   );
 };
 

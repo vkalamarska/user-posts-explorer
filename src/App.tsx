@@ -3,6 +3,7 @@ import UsersExplorer from "./components/UsersExplorer";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import UserPage from "./components/UserPage";
+import PostPage from "./components/PostPage";
 
 const AppWrapper = styled.section`
   width: 100%;
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/user/:userId",
     element: <UserPage></UserPage>,
+  },
+  {
+    path: "/user/:userId/:postId",
+    element: <PostPage></PostPage>,
   },
 ]);
 
