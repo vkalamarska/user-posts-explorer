@@ -4,15 +4,18 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import BackIcon from "../assets/back.svg";
 import AddIcon from "../assets/add.svg";
-import TrashIcon from "../assets/trash.svg";
+import DeleteIcon from "../assets/delete.svg";
+import DetailsIcon from "../assets/chevron-right.svg";
 
 const PostExplorer = styled.div`
   margin: 35px 90px 50px 90px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 const HeaderWrapper = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   margin: 0 0 55px 0;
@@ -45,14 +48,20 @@ const AddPostButton = styled.div`
   cursor: pointer;
 `;
 
+const PostWrapper = styled.div`
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const PostContainer = styled.div`
   width: 100%;
-  margin: 0 0 6px 0;
-  padding: 8px 12px;
+  margin: 0 0 8px 0;
+  padding: 6px 11px;
   display: flex;
   justify-content: space-between;
   border: 2px solid black;
-  font-size: 12px;
 `;
 
 const TitleWrapper = styled.div`
@@ -61,10 +70,11 @@ const TitleWrapper = styled.div`
 
 const DeleteButton = styled.button`
   margin: 0 7px 0 0;
-  padding: 10px;
-  background-image: url(${TrashIcon});
+  padding: 12px;
+  background-image: url(${DeleteIcon});
   background-size: 100%;
   background-repeat: no-repeat;
+  background-position: center;
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -73,11 +83,17 @@ const DeleteButton = styled.button`
 const PostTitle = styled.div`
   display: flex;
   align-items: center;
-  font-size: 12px;
+  font-size: 13px;
 `;
 
 const DetailsButton = styled.button`
-  border: 1px solid black;
+  padding: 15px;
+  background-image: url(${DetailsIcon});
+  background-size: 100%;
+  background-repeat: no-repeat;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 `;
 
 const UserPage = () => {
@@ -115,15 +131,17 @@ const UserPage = () => {
         <Header>{data?.user.name}</Header>
         <AddPostButton></AddPostButton>
       </HeaderWrapper>
-      {data?.user.posts.data.map((p) => (
-        <PostContainer>
-          <TitleWrapper>
-            <DeleteButton></DeleteButton>
-            <PostTitle>{p.title}</PostTitle>
-          </TitleWrapper>
-          <DetailsButton></DetailsButton>
-        </PostContainer>
-      ))}
+      <PostWrapper>
+        {data?.user.posts.data.map((p) => (
+          <PostContainer>
+            <TitleWrapper>
+              <DeleteButton></DeleteButton>
+              <PostTitle>{p.title}</PostTitle>
+            </TitleWrapper>
+            <DetailsButton></DetailsButton>
+          </PostContainer>
+        ))}
+      </PostWrapper>
     </PostExplorer>
   );
 };

@@ -6,62 +6,62 @@ const UserComponent = styled.div`
   flex-direction: column;
   height: 250px;
   width: 210px;
-  margin: 15px 23px;
-  padding: 15px 12px 15px 12px;
-  border: 3px solid black;
+  margin: 10px 21px;
+  padding: 15px 10px 15px 10px;
+  border: 2px solid black;
 `;
 
 const Name = styled.div`
-  margin: 0 0 20px;
-  font-size: 12px;
+  margin: 0 0 15px;
+  font-size: 10px;
   font-weight: 600;
 `;
 
 const Email = styled.a`
-  font-size: 12px;
+  font-size: 10px;
   text-decoration: underline;
   color: #0a65cd;
 `;
 
 const PhoneNumber = styled.a`
-  font-size: 12px;
+  font-size: 10px;
   text-decoration: underline;
   color: #0a65cd;
 `;
 
 const WebSite = styled.a`
-  margin: 0 0 20px 0;
-  font-size: 12px;
+  margin: 0 0 15px 0;
+  font-size: 10px;
   text-decoration: underline;
   color: #0a65cd;
 `;
 
 const Company = styled.div`
-  margin: 0 0 3px 0;
-  font-size: 12px;
+  margin: 0 0 1px 0;
+  font-size: 10px;
 `;
 
 const CatchPhrase = styled.div`
-  margin: 0 0 3px 0;
-  font-size: 12px;
+  margin: 0 0 1px 0;
+  font-size: 10px;
 `;
 
 const Bs = styled.div`
-  margin: 0 0 36px 0;
-  font-size: 12px;
+  margin: 0 0 30px 0;
+  font-size: 10px;
   font-weight: bold;
 `;
 
 const DetailsButton = styled(Link)`
   margin: 0 auto;
-  padding: 22px 59px;
+  padding: 19px 60px;
   box-shadow: 2px 2px 0px 0px #000000;
   background-color: #ffffff;
   border: 2px solid #000000;
   display: inline-block;
   color: #000000;
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: bold;
   text-decoration: none;
   cursor: pointer;
 

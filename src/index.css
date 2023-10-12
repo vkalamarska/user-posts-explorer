@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "Comfortaa";
-  src: url("Comfortaa-SemiBold.ttf") format("opentype");
+  font-family: "Poppins";
+  src: url("Poppins-Regular.ttf") format("opentype");
 }
 
 html,
@@ -9,8 +9,7 @@ body {
   height: 100%;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Comfortaa", "Poppins", sans-serif, "Courier New", Courier,
-    monospace;
+  font-family: "Poppins", sans-serif, "Courier New", Courier, monospace;
   color: black;
 }
 
