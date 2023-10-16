@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { IUser } from "../types/User";
 
 const UserComponent = styled.div`
   display: flex;
@@ -71,7 +72,11 @@ const DetailsButton = styled(Link)`
   }
 `;
 
-const User = ({ user }) => {
+interface IProps {
+  user: IUser;
+}
+
+const User = ({ user }: IProps) => {
   return (
     <UserComponent>
       <Name>{user.name}</Name>

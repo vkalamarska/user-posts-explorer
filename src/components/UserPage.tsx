@@ -5,6 +5,8 @@ import styled from "styled-components";
 import DeleteIcon from "../assets/delete.svg";
 import DetailsIcon from "../assets/chevron-right.svg";
 import HeaderNavigation from "./HeaderNavigation";
+import { IUser } from "../types/User";
+import { IPost } from "../types/Post";
 
 const PostsExplorer = styled.div`
   margin: 35px 90px 50px 90px;
@@ -61,24 +63,12 @@ const DetailsButton = styled(Link)`
   cursor: pointer;
 `;
 
-interface IPostData {
-  id: string;
-  title: string;
-  body: string;
-}
-
-interface IApiResponse {
-  id: string;
-  name: string;
-  posts: {
-    data: IPostData[];
-  };
-}
+type ApiResponse = Pick<IUser, "id" | "name"> & { posts: { data: IPost[] } };
 
 const UserPage = () => {
   const { userId } = useParams();
 
-  const FILMS_QUERY = gql`
+  const USERS_QUERY = gql`
     query GetUser($id: ID!) {
       user(id: $id) {
         id
@@ -94,8 +84,8 @@ const UserPage = () => {
     }
   `;
 
-  const { data, loading, error } = useQuery<{ user: IApiResponse }>(
-    FILMS_QUERY,
+  const { data, loading, error } = useQuery<{ user: ApiResponse }>(
+    USERS_QUERY,
     {
       variables: {
         id: userId,

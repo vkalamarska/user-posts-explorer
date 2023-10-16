@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import HeaderNavigation from "./HeaderNavigation";
 import CommentsSection from "./CommentsSection";
+import { IUser } from "../types/User";
+import { IPost } from "../types/Post";
+import { IComment } from "../types/Comment";
 
 const PostExplorer = styled.div`
   margin: 35px 90px 50px 90px;
@@ -27,7 +30,7 @@ const PostContainer = styled.div`
 const PostPage = () => {
   const { userId, postId } = useParams();
 
-  const FILMS_QUERY = gql`
+  const USERS_QUERY = gql`
     query GetUserWithPosts($userId: ID!, $postId: ID!) {
       user(id: $userId) {
         id
@@ -50,7 +53,10 @@ const PostPage = () => {
     }
   `;
 
-  const { data, loading, error } = useQuery(FILMS_QUERY, {
+  const { data, loading, error } = useQuery<{
+    user: Pick<IUser, "id" | "name">;
+    post: IPost & { comments: { data: IComment[] } };
+  }>(USERS_QUERY, {
     variables: {
       userId,
       postId,
@@ -63,7 +69,7 @@ const PostPage = () => {
   return (
     <PostExplorer>
       <HeaderNavigation
-        userName={data?.user.name}
+        userName={data?.user.name || ""}
         returnToPath={`/user/${data?.user.id}`}
       ></HeaderNavigation>
       <PostTitleContainer>{data?.post.title}</PostTitleContainer>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import User from "./User";
+import User, { IUser } from "./User";
 import { useQuery, gql } from "@apollo/client";
 
 const UsersWrapper = styled.div`
@@ -9,8 +9,12 @@ const UsersWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
+interface IApiResponse {
+  data: IUser[];
+}
+
 const UsersExplorer = () => {
-  const FILMS_QUERY = gql`
+  const USERS_QUERY = gql`
     {
       users {
         data {
@@ -24,27 +28,14 @@ const UsersExplorer = () => {
             catchPhrase
             bs
           }
-          posts {
-            data {
-              id
-              title
-              body
-              comments {
-                data {
-                  id
-                  name
-                  email
-                  body
-                }
-              }
-            }
-          }
         }
       }
     }
   `;
 
-  const { data, loading, error } = useQuery(FILMS_QUERY);
+  const { data, loading, error } = useQuery<{ users: IApiResponse }>(
+    USERS_QUERY
+  );
 
   if (loading) return <div>Loading</div>;
   if (error) return <pre>{error.message}</pre>;
