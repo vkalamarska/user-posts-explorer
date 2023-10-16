@@ -27,6 +27,8 @@ const Header = styled.div`
   font-weight: bold;
 `;
 
+const AddButtonContainer = styled.div``;
+
 const AddPostButton = styled.div`
   padding: 20px;
   background-image: url(${AddIcon});
@@ -40,14 +42,21 @@ const AddPostButton = styled.div`
 interface IProps {
   userName: string;
   returnToPath: string;
+  isAddButtonVisible?: boolean;
 }
 
-const HeaderNavigation = ({ userName, returnToPath }: IProps) => {
+const HeaderNavigation = ({
+  userName,
+  returnToPath,
+  isAddButtonVisible = false,
+}: IProps) => {
   return (
     <HeaderWrapper>
       <ButtonBack to={returnToPath}></ButtonBack>
       <Header>{userName}</Header>
-      <AddPostButton></AddPostButton>
+      <AddButtonContainer>
+        {isAddButtonVisible && <AddPostButton></AddPostButton>}
+      </AddButtonContainer>
     </HeaderWrapper>
   );
 };

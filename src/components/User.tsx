@@ -4,8 +4,8 @@ import styled from "styled-components";
 const UserComponent = styled.div`
   display: flex;
   flex-direction: column;
-  height: 250px;
-  width: 210px;
+  height: 240px;
+  width: 200px;
   margin: 10px 21px;
   padding: 15px 10px 15px 10px;
   border: 2px solid black;

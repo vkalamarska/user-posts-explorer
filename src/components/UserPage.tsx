@@ -111,9 +111,10 @@ const UserPage = () => {
       <HeaderNavigation
         userName={data.user.name}
         returnToPath={"/"}
+        isAddButtonVisible
       ></HeaderNavigation>
       <PostWrapper>
-        {data?.user.posts.data.map((p) => (
+        {data.user.posts.data.map((p) => (
           <PostContainer>
             <TitleWrapper>
               <DeleteButton></DeleteButton>
