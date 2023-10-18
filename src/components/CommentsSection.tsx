@@ -1,5 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { IUser } from "../types/User";
+import { IPost } from "../types/Post";
+import { IComment } from "../types/Comment";
+import Modal from "./ModalAddComment";
 
 const CommentsExplorer = styled.div`
   width: 90%;
@@ -31,6 +35,11 @@ const AddCommentButton = styled.button`
   border-right: none;
   background-color: transparent;
   cursor: pointer;
+
+  &:active {
+    position: relative;
+    top: 1px;
+  }
 `;
 
 const CommentsWrapper = styled.div``;
@@ -62,16 +71,31 @@ const CommentBody = styled.div`
   font-size: 12px;
 `;
 
-const CommentsSection = ({ data }) => {
+interface IProps {
+  data: IApiResponse;
+}
+
+interface IApiResponse {
+  user: Pick<IUser, "id" | "name">;
+  post: IPost & { comments: { data: IComment[] } };
+}
+
+const CommentsSection = ({ data }: IProps) => {
   const [toggle, setToggle] = useState(false);
+  const [open, setOpen] = useState(false);
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
 
   return (
     <CommentsExplorer>
+      <Modal isOpen={open} onClose={onCloseModal} />
       <ButtonsContainer>
         <ShowCommentsButton onClick={() => setToggle(!toggle)}>
           {toggle ? `Hide Comments` : `Show Comments`}
         </ShowCommentsButton>
-        {toggle && <AddCommentButton>Add Comment</AddCommentButton>}
+        {toggle && (
+          <AddCommentButton onClick={onOpenModal}>Add Comment</AddCommentButton>
+        )}
       </ButtonsContainer>
       {toggle && (
         <CommentsWrapper>

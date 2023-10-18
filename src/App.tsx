@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import UsersExplorer from "./components/UsersExplorer";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import { ModalProvider } from "styled-react-modal";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import UserPage from "./components/UserPage";
 import PostPage from "./components/PostPage";
@@ -35,7 +36,9 @@ function App() {
   return (
     <AppWrapper>
       <ApolloProvider client={client}>
-        <RouterProvider router={router} />
+        <ModalProvider>
+          <RouterProvider router={router} />
+        </ModalProvider>
       </ApolloProvider>
     </AppWrapper>
   );

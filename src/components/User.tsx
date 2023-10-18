@@ -57,6 +57,7 @@ const DetailsButton = styled(Link)`
   margin: 0 auto;
   padding: 19px 60px;
   box-shadow: 2px 2px 0px 0px #000000;
+  background: linear-gradient(to bottom, #ffffff 5%, #0a65cd2c 100%);
   background-color: #ffffff;
   border: 2px solid #000000;
   display: inline-block;
@@ -66,7 +67,12 @@ const DetailsButton = styled(Link)`
   text-decoration: none;
   cursor: pointer;
 
-  :active {
+  &:hover {
+    background: linear-gradient(to bottom, #0a65cd2c 5%, #ffffff 100%);
+    background-color: #ffffff;
+  }
+
+  &:active {
     position: relative;
     top: 1px;
   }

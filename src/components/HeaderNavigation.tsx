@@ -2,6 +2,8 @@ import styled from "styled-components";
 import BackIcon from "../assets/back.svg";
 import AddIcon from "../assets/add.svg";
 import { Link } from "react-router-dom";
+import Modal from "./ModalAddPost.tsx";
+import { useState } from "react";
 
 const HeaderWrapper = styled.div`
   width: 100%;
@@ -18,6 +20,11 @@ const ButtonBack = styled(Link)`
   border: none;
   background-color: transparent;
   cursor: pointer;
+
+  &:active {
+    position: relative;
+    top: 1px;
+  }
 `;
 
 const Header = styled.div`
@@ -37,6 +44,11 @@ const AddPostButton = styled.div`
   border: none;
   background-color: transparent;
   cursor: pointer;
+
+  &:active {
+    position: relative;
+    top: 1px;
+  }
 `;
 
 interface IProps {
@@ -50,12 +62,19 @@ const HeaderNavigation = ({
   returnToPath,
   isAddButtonVisible = false,
 }: IProps) => {
+  const [open, setOpen] = useState(false);
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
+
   return (
     <HeaderWrapper>
+      <Modal isOpen={open} onClose={onCloseModal} />
       <ButtonBack to={returnToPath}></ButtonBack>
       <Header>{userName}</Header>
       <AddButtonContainer>
-        {isAddButtonVisible && <AddPostButton></AddPostButton>}
+        {isAddButtonVisible && (
+          <AddPostButton onClick={onOpenModal}></AddPostButton>
+        )}
       </AddButtonContainer>
     </HeaderWrapper>
   );
