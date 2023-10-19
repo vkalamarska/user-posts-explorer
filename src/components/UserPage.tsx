@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -7,6 +7,8 @@ import DetailsIcon from "../assets/chevron-right.svg";
 import HeaderNavigation from "./HeaderNavigation";
 import { IUser } from "../types/User";
 import { IPost } from "../types/Post";
+import { useState } from "react";
+import Editable from "./Editable";
 
 const PostsExplorer = styled.div`
   margin: 35px 90px 50px 90px;
@@ -47,11 +49,11 @@ const DeleteButton = styled.button`
   cursor: pointer;
 `;
 
-const PostTitle = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 13px;
-`;
+// const PostTitle = styled.span`
+//   display: flex;
+//   align-items: center;
+//   font-size: 13px;
+// `;
 
 const DetailsButton = styled(Link)`
   padding: 15px;
@@ -84,6 +86,14 @@ const UserPage = () => {
     }
   `;
 
+  const UPDATE_POST_MUTATION = gql`
+    mutation UpdatePostMutation($id: ID!, $input: UpdatePostInput!) {
+      updatePost(id: $id, input: $input) {
+        id
+      }
+    }
+  `;
+
   const { data, loading, error } = useQuery<{ user: ApiResponse }>(
     USERS_QUERY,
     {
@@ -92,6 +102,8 @@ const UserPage = () => {
       },
     }
   );
+
+  const [updatePost, {}] = useMutation(UPDATE_POST_MUTATION);
 
   if (loading) return <div>Loading</div>;
   if (!data || error) return <pre>{error?.message}</pre>;
@@ -108,7 +120,20 @@ const UserPage = () => {
           <PostContainer>
             <TitleWrapper>
               <DeleteButton></DeleteButton>
-              <PostTitle>{p.title}</PostTitle>
+              <Editable
+                title={p.title}
+                onSubmit={(newValue) => {
+                  updatePost({
+                    variables: {
+                      id: p.id,
+                      input: {
+                        title: newValue,
+                        body: p.body,
+                      },
+                    },
+                  });
+                }}
+              ></Editable>
             </TitleWrapper>
             <DetailsButton to={`/user/${data.user.id}/${p.id}`}></DetailsButton>
           </PostContainer>
