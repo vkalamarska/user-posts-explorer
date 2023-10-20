@@ -7,11 +7,11 @@ import DetailsIcon from "../assets/chevron-right.svg";
 import HeaderNavigation from "./HeaderNavigation";
 import { IUser } from "../types/User";
 import { IPost } from "../types/Post";
-import { useState } from "react";
 import Editable from "./Editable";
 
 const PostsExplorer = styled.div`
-  margin: 35px 90px 50px 90px;
+  min-height: 100%;
+  padding: 35px 90px 50px 90px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,6 +31,7 @@ const PostContainer = styled.div`
   display: flex;
   justify-content: space-between;
   border: 2px solid black;
+  background-color: white;
 `;
 
 const TitleWrapper = styled.div`

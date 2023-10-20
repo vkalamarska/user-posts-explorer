@@ -48,6 +48,7 @@ const CommentContainer = styled.div`
   margin: 9px 0;
   padding: 10px;
   border: 2px solid black;
+  background-color: white;
 `;
 
 const CommentHeader = styled.div`

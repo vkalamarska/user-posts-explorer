@@ -8,22 +8,27 @@ import { IPost } from "../types/Post";
 import { IComment } from "../types/Comment";
 
 const PostExplorer = styled.div`
-  margin: 35px 90px 50px 90px;
+  min-height: 100%;
+  padding: 35px 90px 50px 90px;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-const PostTitleContainer = styled.div`
+const PostWrapper = styled.div`
+  background-color: white;
+  margin: 0 0 50px 0;
+`;
+
+const PostTitle = styled.div`
   width: 90%;
   margin: 0 0 25px 0;
   font-size: 25px;
   font-weight: bold;
 `;
 
-const PostContainer = styled.div`
+const PostBody = styled.div`
   width: 90%;
-  margin: 0 0 50px 0;
   font-size: 12px;
 `;
 
@@ -72,8 +77,10 @@ const PostPage = () => {
         userName={data?.user.name || ""}
         returnToPath={`/user/${data?.user.id}`}
       ></HeaderNavigation>
-      <PostTitleContainer>{data?.post.title}</PostTitleContainer>
-      <PostContainer>{data?.post.body}</PostContainer>
+      <PostWrapper>
+        <PostTitle>{data?.post.title}</PostTitle>
+        <PostBody>{data?.post.body}</PostBody>
+      </PostWrapper>
       <CommentsSection data={data}></CommentsSection>
     </PostExplorer>
   );

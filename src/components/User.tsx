@@ -10,6 +10,7 @@ const UserComponent = styled.div`
   margin: 10px 21px;
   padding: 15px 10px 15px 10px;
   border: 2px solid black;
+  background-color: white;
 `;
 
 const Name = styled.div`
