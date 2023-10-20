@@ -9,7 +9,6 @@ import PostPage from "./components/PostPage";
 const AppWrapper = styled.section`
   width: 100%;
   min-height: 100%;
-  background-color: #0a65cd2c;
 `;
 
 const router = createBrowserRouter([

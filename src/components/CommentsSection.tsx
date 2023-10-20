@@ -74,6 +74,7 @@ const CommentBody = styled.div`
 
 interface IProps {
   data: IApiResponse;
+  onSubmit: (newName: string, newEmail: string, newBody: string) => void;
 }
 
 interface IApiResponse {
@@ -81,7 +82,7 @@ interface IApiResponse {
   post: IPost & { comments: { data: IComment[] } };
 }
 
-const CommentsSection = ({ data }: IProps) => {
+const CommentsSection = ({ data, onSubmit }: IProps) => {
   const [toggle, setToggle] = useState(false);
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
@@ -89,7 +90,7 @@ const CommentsSection = ({ data }: IProps) => {
 
   return (
     <CommentsExplorer>
-      <Modal isOpen={open} onClose={onCloseModal} />
+      <Modal isOpen={open} onClose={onCloseModal} onSubmit={onSubmit} />
       <ButtonsContainer>
         <ShowCommentsButton onClick={() => setToggle(!toggle)}>
           {toggle ? `Hide Comments` : `Show Comments`}

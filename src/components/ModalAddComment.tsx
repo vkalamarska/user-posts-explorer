@@ -1,5 +1,6 @@
 import StyledReactModal from "styled-react-modal";
 import styled from "styled-components";
+import { useState } from "react";
 
 const StyledModal = StyledReactModal.styled`
   width: 22rem;
@@ -140,9 +141,32 @@ const ModalFooter = styled.div`
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
+  onSubmit: (newName: string, newEmail: string, newBody: string) => void;
 }
 
-const ModalAddComment = ({ isOpen, onClose }: IProps) => {
+const ModalAddComment = ({ isOpen, onClose, onSubmit }: IProps) => {
+  const [inputName, setInputName] = useState("");
+  const [inputEmail, setInputEmail] = useState("");
+  const [inputBody, setInputBody] = useState("");
+
+  const handleInputNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setInputName(event.target.value);
+  };
+
+  const handleInputEmailChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setInputEmail(event.target.value);
+  };
+
+  const handleInputBodyChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setInputBody(event.target.value);
+  };
+
   return (
     <StyledModal
       isOpen={isOpen}
@@ -153,19 +177,44 @@ const ModalAddComment = ({ isOpen, onClose }: IProps) => {
       <AddCommentLine>Add comment</AddCommentLine>
       <NameInputContainer>
         <Name>Name</Name>
-        <NameInput></NameInput>
+        <NameInput
+          value={inputName}
+          onChange={handleInputNameChange}
+        ></NameInput>
       </NameInputContainer>
       <EmailInputContainer>
         <Email>Email</Email>
-        <EmailInput></EmailInput>
+        <EmailInput
+          value={inputEmail}
+          type="email"
+          onChange={handleInputEmailChange}
+        ></EmailInput>
       </EmailInputContainer>
       <BodyInputContainer>
         <Body>Body</Body>
-        <BodyInput></BodyInput>
+        <BodyInput
+          value={inputBody}
+          onChange={handleInputBodyChange}
+        ></BodyInput>
       </BodyInputContainer>
       <ButtonContainer>
         <CancelButton onClick={onClose}>Cancel</CancelButton>
-        <SaveButton>Save</SaveButton>
+        <SaveButton
+          onClick={() => {
+            const regexp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+            if (!inputEmail.match(regexp)) {
+              alert("Invalid email :(");
+              return;
+            }
+            onSubmit(inputName, inputEmail, inputBody);
+            onClose();
+            setInputName("");
+            setInputEmail("");
+            setInputBody("");
+          }}
+        >
+          Save
+        </SaveButton>
       </ButtonContainer>
       <ModalFooter></ModalFooter>
     </StyledModal>

@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import HeaderNavigation from "./HeaderNavigation";
@@ -8,7 +8,6 @@ import { IPost } from "../types/Post";
 import { IComment } from "../types/Comment";
 
 const PostExplorer = styled.div`
-  min-height: 100%;
   padding: 35px 90px 50px 90px;
   display: flex;
   flex-direction: column;
@@ -16,19 +15,18 @@ const PostExplorer = styled.div`
 `;
 
 const PostWrapper = styled.div`
+  width: 90%;
   background-color: white;
   margin: 0 0 50px 0;
 `;
 
 const PostTitle = styled.div`
-  width: 90%;
   margin: 0 0 25px 0;
   font-size: 25px;
   font-weight: bold;
 `;
 
 const PostBody = styled.div`
-  width: 90%;
   font-size: 12px;
 `;
 
@@ -58,6 +56,14 @@ const PostPage = () => {
     }
   `;
 
+  const CREATE_COMMENT_MUTATION = gql`
+    mutation CreateCommentMutation($input: CreateCommentInput!) {
+      createComment(input: $input) {
+        id
+      }
+    }
+  `;
+
   const { data, loading, error } = useQuery<{
     user: Pick<IUser, "id" | "name">;
     post: IPost & { comments: { data: IComment[] } };
@@ -67,6 +73,8 @@ const PostPage = () => {
       postId,
     },
   });
+
+  const [createComment, {}] = useMutation(CREATE_COMMENT_MUTATION);
 
   if (loading) return <div>Loading</div>;
   if (error) return <pre>{error.message}</pre>;
@@ -81,7 +89,20 @@ const PostPage = () => {
         <PostTitle>{data?.post.title}</PostTitle>
         <PostBody>{data?.post.body}</PostBody>
       </PostWrapper>
-      <CommentsSection data={data}></CommentsSection>
+      <CommentsSection
+        data={data}
+        onSubmit={(newName, newEmail, newBody) => {
+          createComment({
+            variables: {
+              input: {
+                name: newName,
+                email: newEmail,
+                body: newBody,
+              },
+            },
+          });
+        }}
+      ></CommentsSection>
     </PostExplorer>
   );
 };

@@ -36,6 +36,7 @@ const PostContainer = styled.div`
 
 const TitleWrapper = styled.div`
   display: flex;
+  width: 80%;
 `;
 
 const DeleteButton = styled.button`

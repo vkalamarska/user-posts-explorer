@@ -31,6 +31,7 @@ const Editable = ({ title, onSubmit }: IProps) => {
   if (isEditing) {
     return (
       <input
+        style={{ width: "100%", outline: "none" }}
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleEnter}
