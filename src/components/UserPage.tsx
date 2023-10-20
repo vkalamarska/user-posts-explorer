@@ -94,6 +94,14 @@ const UserPage = () => {
     }
   `;
 
+  const CREATE_POST_MUTATION = gql`
+    mutation CreatePostMutation($input: CreatePostInput!) {
+      createPost(input: $input) {
+        id
+      }
+    }
+  `;
+
   const { data, loading, error } = useQuery<{ user: ApiResponse }>(
     USERS_QUERY,
     {
@@ -105,6 +113,8 @@ const UserPage = () => {
 
   const [updatePost, {}] = useMutation(UPDATE_POST_MUTATION);
 
+  const [createPost, {}] = useMutation(CREATE_POST_MUTATION);
+
   if (loading) return <div>Loading</div>;
   if (!data || error) return <pre>{error?.message}</pre>;
 
@@ -114,6 +124,16 @@ const UserPage = () => {
         userName={data.user.name}
         returnToPath={"/"}
         isAddButtonVisible
+        onSubmit={(newTitle, newBody) => {
+          createPost({
+            variables: {
+              input: {
+                title: newTitle,
+                body: newBody,
+              },
+            },
+          });
+        }}
       ></HeaderNavigation>
       <PostWrapper>
         {data.user.posts.data.map((p) => (

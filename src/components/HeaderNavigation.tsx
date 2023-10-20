@@ -55,12 +55,14 @@ interface IProps {
   userName: string;
   returnToPath: string;
   isAddButtonVisible?: boolean;
+  onSubmit: (newTitle: string, newBody: string) => void;
 }
 
 const HeaderNavigation = ({
   userName,
   returnToPath,
   isAddButtonVisible = false,
+  onSubmit,
 }: IProps) => {
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
@@ -68,7 +70,7 @@ const HeaderNavigation = ({
 
   return (
     <HeaderWrapper>
-      <Modal isOpen={open} onClose={onCloseModal} />
+      <Modal isOpen={open} onClose={onCloseModal} onSubmit={onSubmit} />
       <ButtonBack to={returnToPath}></ButtonBack>
       <Header>{userName}</Header>
       <AddButtonContainer>

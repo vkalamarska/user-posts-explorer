@@ -1,5 +1,6 @@
 import StyledReactModal from "styled-react-modal";
 import styled from "styled-components";
+import { useState } from "react";
 
 const StyledModal = StyledReactModal.styled`
   width: 22rem;
@@ -124,9 +125,25 @@ const ModalFooter = styled.div`
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
+  onSubmit: (newTitle: string, newBody: string) => void;
 }
 
-const ModalAddPost = ({ isOpen, onClose }: IProps) => {
+const ModalAddPost = ({ isOpen, onClose, onSubmit }: IProps) => {
+  const [inputTitle, setInputTitle] = useState("");
+  const [inputBody, setInputBody] = useState("");
+
+  const handleInputTitleChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setInputTitle(event.target.value);
+  };
+
+  const handleInputBodyChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setInputBody(event.target.value);
+  };
+
   return (
     <StyledModal
       isOpen={isOpen}
@@ -137,15 +154,30 @@ const ModalAddPost = ({ isOpen, onClose }: IProps) => {
       <AddPostLine>Add post</AddPostLine>
       <TitleInputContainer>
         <Title>Title</Title>
-        <TitleInput></TitleInput>
+        <TitleInput
+          value={inputTitle}
+          onChange={handleInputTitleChange}
+        ></TitleInput>
       </TitleInputContainer>
       <BodyInputContainer>
         <Body>Body</Body>
-        <BodyInput></BodyInput>
+        <BodyInput
+          value={inputBody}
+          onChange={handleInputBodyChange}
+        ></BodyInput>
       </BodyInputContainer>
       <ButtonContainer>
         <CancelButton onClick={onClose}>Cancel</CancelButton>
-        <SaveButton>Save</SaveButton>
+        <SaveButton
+          onClick={() => {
+            onSubmit(inputTitle, inputBody);
+            onClose();
+            setInputTitle("");
+            setInputBody("");
+          }}
+        >
+          Save
+        </SaveButton>
       </ButtonContainer>
       <ModalFooter></ModalFooter>
     </StyledModal>
