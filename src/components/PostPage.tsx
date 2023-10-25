@@ -6,6 +6,7 @@ import CommentsSection from "./CommentsSection";
 import { IUser } from "../types/User";
 import { IPost } from "../types/Post";
 import { IComment } from "../types/Comment";
+import LoadingPage from "./LoadingPage";
 
 const PostExplorer = styled.div`
   padding: 35px 90px 50px 90px;
@@ -16,7 +17,6 @@ const PostExplorer = styled.div`
 
 const PostWrapper = styled.div`
   width: 90%;
-  background-color: white;
   margin: 0 0 50px 0;
 `;
 
@@ -76,7 +76,7 @@ const PostPage = () => {
 
   const [createComment, {}] = useMutation(CREATE_COMMENT_MUTATION);
 
-  if (loading) return <div>Loading</div>;
+  if (loading) return <LoadingPage />;
   if (error) return <pre>{error.message}</pre>;
 
   return (

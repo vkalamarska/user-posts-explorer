@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
 const PostTitle = styled.span`
@@ -25,6 +26,7 @@ const Editable = ({ title, onSubmit }: IProps) => {
     if (event.key === "Enter") {
       onSubmit(inputValue);
       setIsEditing(false);
+      toast("Post updated");
     }
   };
 
@@ -40,7 +42,12 @@ const Editable = ({ title, onSubmit }: IProps) => {
   }
 
   return (
-    <PostTitle onDoubleClick={() => setIsEditing(true)}>{title}</PostTitle>
+    <PostTitle
+      title="Double-click to edit"
+      onDoubleClick={() => setIsEditing(true)}
+    >
+      {title}
+    </PostTitle>
   );
 };
 

@@ -73,7 +73,7 @@ const CommentBody = styled.div`
 `;
 
 interface IProps {
-  data: IApiResponse;
+  data: IApiResponse | undefined;
   onSubmit: (newName: string, newEmail: string, newBody: string) => void;
 }
 
@@ -99,7 +99,7 @@ const CommentsSection = ({ data, onSubmit }: IProps) => {
           <AddCommentButton onClick={onOpenModal}>Add Comment</AddCommentButton>
         )}
       </ButtonsContainer>
-      {toggle && (
+      {toggle && data && (
         <CommentsWrapper>
           {data.post.comments.data.map((c) => (
             <CommentContainer>

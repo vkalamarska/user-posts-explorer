@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import User, { IUser } from "./User";
+import User from "./User";
 import { useQuery, gql } from "@apollo/client";
+import { IUser } from "../types/User";
+import LoadingPage from "./LoadingPage";
 
 const UsersWrapper = styled.div`
   padding: 45px 90px 50px 90px;
@@ -37,7 +39,7 @@ const UsersExplorer = () => {
     USERS_QUERY
   );
 
-  if (loading) return <div>Loading</div>;
+  if (loading) return <LoadingPage />;
   if (error) return <pre>{error.message}</pre>;
 
   return (

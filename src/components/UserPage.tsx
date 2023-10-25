@@ -8,6 +8,8 @@ import HeaderNavigation from "./HeaderNavigation";
 import { IUser } from "../types/User";
 import { IPost } from "../types/Post";
 import Editable from "./Editable";
+import { toast } from "react-toastify";
+import LoadingPage from "./LoadingPage";
 
 const PostsExplorer = styled.div`
   min-height: 100%;
@@ -50,12 +52,6 @@ const DeleteButton = styled.button`
   background-color: transparent;
   cursor: pointer;
 `;
-
-// const PostTitle = styled.span`
-//   display: flex;
-//   align-items: center;
-//   font-size: 13px;
-// `;
 
 const DetailsButton = styled(Link)`
   padding: 15px;
@@ -104,6 +100,12 @@ const UserPage = () => {
     }
   `;
 
+  const DELETE_POST_MUTATION = gql`
+    mutation DeletePostMutation($id: ID!) {
+      deletePost(id: $id)
+    }
+  `;
+
   const { data, loading, error } = useQuery<{ user: ApiResponse }>(
     USERS_QUERY,
     {
@@ -117,7 +119,9 @@ const UserPage = () => {
 
   const [createPost, {}] = useMutation(CREATE_POST_MUTATION);
 
-  if (loading) return <div>Loading</div>;
+  const [deletePost, {}] = useMutation(DELETE_POST_MUTATION);
+
+  if (loading) return <LoadingPage />;
   if (!data || error) return <pre>{error?.message}</pre>;
 
   return (
@@ -141,7 +145,12 @@ const UserPage = () => {
         {data.user.posts.data.map((p) => (
           <PostContainer>
             <TitleWrapper>
-              <DeleteButton></DeleteButton>
+              <DeleteButton
+                onClick={() => {
+                  deletePost({ variables: { id: p.id } });
+                  toast("Post deleted");
+                }}
+              ></DeleteButton>
               <Editable
                 title={p.title}
                 onSubmit={(newValue) => {

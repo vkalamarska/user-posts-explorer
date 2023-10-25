@@ -1,6 +1,7 @@
 import StyledReactModal from "styled-react-modal";
 import styled from "styled-components";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const StyledModal = StyledReactModal.styled`
   width: 22rem;
@@ -174,6 +175,7 @@ const ModalAddPost = ({ isOpen, onClose, onSubmit }: IProps) => {
             onClose();
             setInputTitle("");
             setInputBody("");
+            toast("Post saved");
           }}
         >
           Save

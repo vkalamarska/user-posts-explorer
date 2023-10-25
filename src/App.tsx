@@ -5,10 +5,13 @@ import { ModalProvider } from "styled-react-modal";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import UserPage from "./components/UserPage";
 import PostPage from "./components/PostPage";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const AppWrapper = styled.section`
   width: 100%;
   min-height: 100%;
+  background-color: #0a65cd2c;
 `;
 
 const router = createBrowserRouter([
@@ -37,6 +40,7 @@ function App() {
       <ApolloProvider client={client}>
         <ModalProvider>
           <RouterProvider router={router} />
+          <ToastContainer />
         </ModalProvider>
       </ApolloProvider>
     </AppWrapper>
