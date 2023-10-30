@@ -1,12 +1,5 @@
 import { RotatingLines } from "react-loader-spinner";
-import styled from "styled-components";
-
-const LoadingPageWrapper = styled.div`
-  display: flex;
-  height: 100vh;
-  justify-content: center;
-  align-content: center;
-`;
+import { LoadingPageWrapper } from "./loading-page.styles";
 
 const LoadingPage = () => {
   return (

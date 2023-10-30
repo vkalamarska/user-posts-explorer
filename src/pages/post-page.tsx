@@ -1,12 +1,12 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import HeaderNavigation from "./HeaderNavigation";
-import CommentsSection from "./CommentsSection";
+import HeaderNavigation from "../components/header-navigation/header-navigation";
+import CommentsSection from "../components/comments-section/comments-section";
 import { IUser } from "../types/User";
 import { IPost } from "../types/Post";
 import { IComment } from "../types/Comment";
-import LoadingPage from "./LoadingPage";
+import LoadingPage from "../components/loading-page/loading-page";
 
 const PostExplorer = styled.div`
   padding: 35px 90px 50px 90px;

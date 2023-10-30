@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import UsersExplorer from "./components/UsersExplorer";
+import UsersExplorer from "./pages/users-explorer";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { ModalProvider } from "styled-react-modal";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import UserPage from "./components/UserPage";
-import PostPage from "./components/PostPage";
+import UserPage from "./pages/user-page";
+import PostPage from "./pages/post-page";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 

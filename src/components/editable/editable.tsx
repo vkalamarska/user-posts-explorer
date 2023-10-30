@@ -1,12 +1,5 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import styled from "styled-components";
-
-const PostTitle = styled.span`
-  display: flex;
-  align-items: center;
-  font-size: 13px;
-`;
 
 interface IProps {
   title: string;

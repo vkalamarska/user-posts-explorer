@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import User from "./User";
+import User from "../components/user/user";
 import { useQuery, gql } from "@apollo/client";
 import { IUser } from "../types/User";
-import LoadingPage from "./LoadingPage";
+import LoadingPage from "../components/loading-page/loading-page";
+import { motion } from "framer-motion";
 
 const UsersWrapper = styled.div`
   padding: 45px 90px 50px 90px;
@@ -43,11 +44,13 @@ const UsersExplorer = () => {
   if (error) return <pre>{error.message}</pre>;
 
   return (
-    <UsersWrapper>
-      {data?.users.data.map((u) => (
-        <User user={u}></User>
-      ))}
-    </UsersWrapper>
+    <motion.div exit={{ opacity: 0 }}>
+      <UsersWrapper>
+        {data?.users.data.map((u) => (
+          <User user={u} />
+        ))}
+      </UsersWrapper>
+    </motion.div>
   );
 };
 

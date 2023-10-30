@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import DeleteIcon from "../assets/delete.svg";
 import DetailsIcon from "../assets/chevron-right.svg";
-import HeaderNavigation from "./HeaderNavigation";
+import HeaderNavigation from "../components/header-navigation/header-navigation";
 import { IUser } from "../types/User";
 import { IPost } from "../types/Post";
-import Editable from "./Editable";
+import Editable from "../components/editable/editable";
 import { toast } from "react-toastify";
-import LoadingPage from "./LoadingPage";
+import LoadingPage from "../components/loading-page/loading-page";
+import { motion } from "framer-motion";
 
 const PostsExplorer = styled.div`
   min-height: 100%;
@@ -51,6 +52,16 @@ const DeleteButton = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.5;
+    transition: opacity 0.4s ease 0s;
+  }
+
+  &:active {
+    position: relative;
+    top: 1px;
+  }
 `;
 
 const DetailsButton = styled(Link)`
@@ -61,6 +72,16 @@ const DetailsButton = styled(Link)`
   border: none;
   background-color: transparent;
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.5;
+    transition: opacity 0.4s ease 0s;
+  }
+
+  &:active {
+    position: relative;
+    top: 1px;
+  }
 `;
 
 type ApiResponse = Pick<IUser, "id" | "name"> & { posts: { data: IPost[] } };
@@ -125,52 +146,56 @@ const UserPage = () => {
   if (!data || error) return <pre>{error?.message}</pre>;
 
   return (
-    <PostsExplorer>
-      <HeaderNavigation
-        userName={data.user.name}
-        returnToPath={"/"}
-        isAddButtonVisible
-        onSubmit={(newTitle, newBody) => {
-          createPost({
-            variables: {
-              input: {
-                title: newTitle,
-                body: newBody,
+    <motion.div exit={{ opacity: 0 }}>
+      <PostsExplorer>
+        <HeaderNavigation
+          userName={data.user.name}
+          returnToPath={"/"}
+          isAddButtonVisible
+          onSubmit={(newTitle, newBody) => {
+            createPost({
+              variables: {
+                input: {
+                  title: newTitle,
+                  body: newBody,
+                },
               },
-            },
-          });
-        }}
-      ></HeaderNavigation>
-      <PostWrapper>
-        {data.user.posts.data.map((p) => (
-          <PostContainer>
-            <TitleWrapper>
-              <DeleteButton
-                onClick={() => {
-                  deletePost({ variables: { id: p.id } });
-                  toast("Post deleted");
-                }}
-              ></DeleteButton>
-              <Editable
-                title={p.title}
-                onSubmit={(newValue) => {
-                  updatePost({
-                    variables: {
-                      id: p.id,
-                      input: {
-                        title: newValue,
-                        body: p.body,
+            });
+          }}
+        ></HeaderNavigation>
+        <PostWrapper>
+          {data.user.posts.data.map((p) => (
+            <PostContainer>
+              <TitleWrapper>
+                <DeleteButton
+                  onClick={() => {
+                    deletePost({ variables: { id: p.id } });
+                    toast("Post deleted");
+                  }}
+                ></DeleteButton>
+                <Editable
+                  title={p.title}
+                  onSubmit={(newValue) => {
+                    updatePost({
+                      variables: {
+                        id: p.id,
+                        input: {
+                          title: newValue,
+                          body: p.body,
+                        },
                       },
-                    },
-                  });
-                }}
-              ></Editable>
-            </TitleWrapper>
-            <DetailsButton to={`/user/${data.user.id}/${p.id}`}></DetailsButton>
-          </PostContainer>
-        ))}
-      </PostWrapper>
-    </PostsExplorer>
+                    });
+                  }}
+                ></Editable>
+              </TitleWrapper>
+              <DetailsButton
+                to={`/user/${data.user.id}/${p.id}`}
+              ></DetailsButton>
+            </PostContainer>
+          ))}
+        </PostWrapper>
+      </PostsExplorer>
+    </motion.div>
   );
 };
 
