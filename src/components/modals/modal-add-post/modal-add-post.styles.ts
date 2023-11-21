@@ -1,7 +1,5 @@
 import StyledReactModal from "styled-react-modal";
 import styled from "styled-components";
-import { useState } from "react";
-import { toast } from "react-toastify";
 
 const StyledModal = StyledReactModal.styled`
   width: 22rem;

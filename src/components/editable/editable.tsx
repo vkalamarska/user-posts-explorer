@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { PostTitle } from "./editable.styles";
 
 interface IProps {
   title: string;

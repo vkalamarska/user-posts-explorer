@@ -3,6 +3,18 @@ import { IUser } from "../../types/User";
 import { IPost } from "../../types/Post";
 import { IComment } from "../../types/Comment";
 import Modal from "../modals/modal-add-comment/modal-add-comment";
+import {
+  CommentsExplorer,
+  ButtonsContainer,
+  ShowCommentsButton,
+  AddCommentButton,
+  CommentsWrapper,
+  CommentContainer,
+  CommentHeader,
+  CommentTitle,
+  Email,
+  CommentBody,
+} from "./comments-section.styles";
 
 interface IProps {
   data: IApiResponse | undefined;
