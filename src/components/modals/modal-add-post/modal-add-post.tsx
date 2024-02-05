@@ -64,6 +64,11 @@ const ModalAddPost = ({ isOpen, onClose, onSubmit }: IProps) => {
         <CancelButton onClick={onClose}>Cancel</CancelButton>
         <SaveButton
           onClick={() => {
+            if (!inputTitle || !inputBody) {
+              toast.error("Each field is required");
+              return;
+            }
+
             onSubmit(inputTitle, inputBody);
             onClose();
             setInputTitle("");

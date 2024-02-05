@@ -83,10 +83,16 @@ const ModalAddComment = ({ isOpen, onClose, onSubmit }: IProps) => {
         <SaveButton
           onClick={() => {
             const regexp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-            if (!inputEmail.match(regexp)) {
-              alert("Invalid email :(");
+            if (inputEmail && !inputEmail.match(regexp)) {
+              toast.error("Invalid email :(");
               return;
             }
+
+            if (!inputEmail || !inputName || !inputBody) {
+              toast.error("Each field is required");
+              return;
+            }
+
             onSubmit(inputName, inputEmail, inputBody);
             onClose();
             setInputName("");

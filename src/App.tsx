@@ -31,7 +31,7 @@ const router = createBrowserRouter([
 
 function App() {
   const client = new ApolloClient({
-    uri: "https://deafening-egg-production.up.railway.app",
+    uri: "https://graphqlzero.almansi.me/api",
     cache: new InMemoryCache(),
   });
 
