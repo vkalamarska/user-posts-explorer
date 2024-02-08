@@ -1,5 +1,5 @@
 import { IUser } from "../../types/User";
-import React from "react";
+
 import {
   Bs,
   CatchPhrase,
