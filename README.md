@@ -1,27 +1,27 @@
-# React + TypeScript + Vite
+# User Posts Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple SPA for viewing users, their posts and comments. Includes UI for adding, editing and deleting posts and adding comments.
 
-Currently, two official plugins are available:
+**[Live demo](https://user-posts-explorer.vercel.app)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### ⚠️ Notice
+Please note that due to the limitations of the external API, adding, updating and removing posts or comments has no effect on the displayed data. This is an expected behavior.
 
-## Expanding the ESLint configuration
+## 🎨 Tech stack
+- TypeScript
+- React
+- Styled-components
+- Apollo
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## ✨ Main features
+- UI based on a given design
+- Form validation
+- Reusable components
+- Clean project structure
 
-- Configure the top-level `parserOptions` property like this:
+## 📸 Screenshots
+![Screenshot](https://github.com/vkalamarska/user-posts-explorer/assets/112348805/fbc7dae0-bbb2-4fab-b65e-723c04746fa8)
+![Screenshot](https://github.com/vkalamarska/user-posts-explorer/assets/112348805/dc6a1bb7-8585-45b0-86ee-3636e17c1c34)
+![Screenshot](https://github.com/vkalamarska/user-posts-explorer/assets/112348805/5eb848bd-e7db-4992-b42d-7d06eef37d82)
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
